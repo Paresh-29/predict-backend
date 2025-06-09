@@ -1,8 +1,7 @@
-
 from pydantic import BaseModel, Field
+from typing import List
 
 TIME_STEP = 100
-
 
 class StockPredictionInput(BaseModel):
     past_100_prices: list[float] = Field(
@@ -11,6 +10,12 @@ class StockPredictionInput(BaseModel):
         max_items=TIME_STEP,
         description=f"""A list of the last {
             TIME_STEP} historical stock prices (float values).""",
+    )
+    symbol: str = Field(
+        ...,
+        min_length=1,
+        max_length=20, # max_length as appropriate for ticker symbols
+        description="Stock ticker symbol (e.g., AAPL, BRTI, RELI).",
     )
 
 
@@ -28,6 +33,12 @@ class MultiStepPredictionInput(BaseModel):
     forecast_days: int = Field(
         ...,
         gt=0,
-        le=365, # Limit to reasonable number of forecast days, e.g., 1 year
+        le=365, # Limit to number of forecast days  -> 1 year
         description="Number of days to forecast into the future (e.g., 1, 5, 30)."
+    )
+    symbol: str = Field(
+        ...,
+        min_length=1,
+        max_length=20, # max_length as appropriate for ticker symbols
+        description="Stock ticker symbol (e.g., AAPL, BRTI, RELI).",
     )
