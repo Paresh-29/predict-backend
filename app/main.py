@@ -1,5 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from app.routes import prediction
 from app.routes import lstm_only 
 from app.routes import data_fetcher
 
@@ -40,6 +41,7 @@ app.add_middleware(
 
 
 # Include your routers
+app.include_router(prediction.router)
 app.include_router(lstm_only.router) 
 app.include_router(data_fetcher.router, prefix="/api")
 

@@ -8,6 +8,7 @@ from phi.tools.yfinance import YFinanceTools
 
 load_dotenv()
 groq_api_key = os.environ["GROQ_API_KEY"]
+print(f"DEBUG: GROQ_API_KEY loaded: {groq_api_key[:5]}...{groq_api_key[-5:]}")
 
 # Utility to clean markdown
 def clean_markdown(text: str) -> str:
